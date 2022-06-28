@@ -1,0 +1,30 @@
+/*FORMULARIO QUE AGREGA LA CIUDAD*/
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label{
+    font-size: 14px;
+}
+
+
+/*INPUT DONDE SE AGREGA LA CIUDAD*/
+#addCity{
+    width: 200px;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+
+/*CARTELES DONDE MUESTRA EL ESTADO DE CARGA DE CIUDAD*/
+#sectionStatus{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+

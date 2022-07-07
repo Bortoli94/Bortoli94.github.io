@@ -11,41 +11,27 @@ const warning = '<p class="status warning">La ciudad ingresada ya se encuentra a
 //**********************************************************************************************************************************
 
 
-let cities = getCitiesFromLocalStorage();
 
-async function addNewCityToLocalStorage() {
-    let newCity = addCity.value.toUpperCase();
+submitCityButton.onclick = async function(){
     sectionStatus.innerHTML = loader;  
-    switch(await validateCity(newCity)) {
-        case "success":
+    
+    let cities = getCitiesFromLocalStorage();
+    let newCity = addCity.value.toUpperCase();
+    
+    if(cities.includes(newCity)){
+        poster = warning;
+    }else{
+        if (await consultAPI(newCity)) {
             cities.push(newCity);
             localStorage.setItem("CITIES", JSON.stringify(cities));
             poster = success;
-            break;
-        case "warning":
-            poster = warning;
-            break;
-        case "error":
+        }
+        else {
             poster = error;
-            break;
-    };
-    setTimeout(function() {sectionStatus.innerHTML = poster;},1500);
-    setTimeout(function() {removeStatus[0].remove();},4000);
-};
-
-async function validateCity(newCity) {
-    for (let i = 0; i < cities.length; i++) {
-        if (newCity == cities[i]) {
-            return "warning";
         };
-    };
-
-    if (await consultAPI(newCity) == "error") {
-        return "error";
     }
-    else {
-        return "success";
-    };
+    setTimeout(function() {sectionStatus.innerHTML = poster;},2000);
 }
 
-submitCityButton.addEventListener("click", addNewCityToLocalStorage);
+
+
